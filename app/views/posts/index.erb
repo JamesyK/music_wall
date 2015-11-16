@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="col-md-4 col-md-offset-4">
+    <h1>Music Wall</h1>
+    <hr/>
+
+    <% @posts.each do |post| %>
+      <div class="post">
+        <p>
+          <a href="/posts/<%= post.id %>"><%= post.title %></a>
+          by: <%= post.author %>
+          <% unless post.url == "" %>
+            <a href="<%= post.url %>">URL</a>
+          <% end %>
+        </p>
+      </div>
+    <% end %>
+
+    <hr/>
+    <a href="/posts/new" class="btn btn-default">Post a song!</a>
+  </div>
+</div>

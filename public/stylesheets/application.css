@@ -1,0 +1,10 @@
+.containerBorder {
+  border-style: solid;
+  border-color: #9898a9;
+  border-width: 2px;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}

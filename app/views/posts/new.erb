@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="col-md-4 col-md-offset-4">
+    <h1>Post a Song</h1>
+    <hr/>
+
+    <% if @post.errors.any? %>
+      <div>
+        <strong>Some issues with your post, please fix them:</strong>
+        <ul>
+          <% @post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div>
+      <form method="post" action="/posts">
+        <div class="form-group">
+          <label>Title:</label>
+          <input type="text" class="form-control" name="title" placeholder="Song Title" value="<%= @post.title %>">
+        </div>
+        <div class="form-group">
+          <label>Author:</label>
+          <input type="text" class="form-control" name="author" placeholder="Song Author" value="<%= @post.author %>">
+        </div>
+        <div class="form-group">
+          <label>URL:</label>
+          <input type="text" class="form-control" name="url" placeholder="Optional" value="<%= @post.url %>">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+    <hr/>
+  </div>
+</div>
