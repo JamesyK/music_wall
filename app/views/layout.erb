@@ -14,16 +14,21 @@
 
   <title></title>
 </head>
-<body>
-  <header>
+<body class="container-fluid">
+  <header class="row">
     <% if current_user %>
-      <a href="/logout" class="col-sm-1 pull-right nav btn btn-danger">Log Out</a>
-      <a href="/posts/new" class="col-sm-1 pull-left nav btn btn-success">Add a Song</a>
+      <div class="col-md-12 header-div">
+        <a href="/posts/new" class="col-md-2 col-md-offset-1 btn btn-default">Add a Song</a>
+        <a href="/posts" class="col-md-4 col-md-offset-1 btn btn-default">Music Wall</a>
+        <a href="/logout" class="col-md-2 col-md-offset-1 btn btn-default">Log Out</a>
+      </div> 
     <% else %>
-      <a href="/login" class="col-sm-1 pull-left btn nav btn-success">Log In</a>  
-      <a href="/signup" class="col-sm-1 pull-right btn nav btn-success">Sign Up</a>  
+      <div class="col-md-12 header-div">
+        <a href="/login" class="col-md-3 col-md-offset-1 btn btn-default">Log In</a>  
+        <a href="/signup" class="col-md-3 col-md-offset-4 btn btn-default">Sign Up</a>
+      </div>
     <% end %>
-  <header>
+  </header>
   <%= yield %>
 </body>
 </html>

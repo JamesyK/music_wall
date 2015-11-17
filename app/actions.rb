@@ -1,8 +1,16 @@
 # Homepage (Root path)
 helpers do
   def current_user
-    current_user = User.find_by(id: session[:user_id]) if session[:user_id]
+    if session
+      current_user = User.find_by(id: session[:user_id]) if session[:user_id]
+    else
+      false
+    end
   end 
+end
+
+before do
+  redirect '/login' if !current_user && request.path != '/login' && request.path != '/signup' && request.path != '/posts' && request.path != '/' 
 end
 
 get '/' do
@@ -16,6 +24,9 @@ end
 
 get '/login' do
   @user = User.new
+  if params[:message]
+    @message = params[:message]
+  end
   erb :'users/login'
 end
 
@@ -25,7 +36,7 @@ get '/logout' do
 end
 
 get '/posts' do
-  @posts = Post.all
+  @posts = Post.joins("LEFT JOIN votes ON votes.post_id = posts.id").select("posts.*, COUNT(votes.id) AS vote_count").group("posts.id").order("vote_count DESC")
   erb :'posts/index'
 end
 
@@ -75,7 +86,7 @@ post '/login' do
     session[:user_id] = user.id
     redirect '/posts'
   else
-    erb :'users/login'
+    redirect '/login?message=Invalid username or password'
   end    
 end
 
@@ -84,6 +95,6 @@ post '/vote' do
   if vote.persisted?
     redirect '/posts'
   else
-    redirect '/animals?message=Cannot vote for animal twice'
+    redirect '/posts?message=Cannot vote for a song twice'
   end
 end
