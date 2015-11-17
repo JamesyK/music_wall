@@ -4,7 +4,35 @@
   border-width: 2px;
 }
 
-.col-centered{
-    float: none;
-    margin: 0 auto;
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+.timestamp {
+  font-size: 10px;
+}
+
+.urlLink {
+  font-size: 12px;
+}
+
+.indexList {
+  font-size: 16px;
+}
+
+.left {
+  position: absolute;
+}
+
+.right {
+  position: absolute;
+}
+
+.post {
+  position: relative;
+}
+
+.display-inline-block {
+  display: inline-block;
 }

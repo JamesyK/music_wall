@@ -15,6 +15,15 @@
   <title></title>
 </head>
 <body>
+  <header>
+    <% if current_user %>
+      <a href="/logout" class="col-sm-1 pull-right nav btn btn-danger">Log Out</a>
+      <a href="/posts/new" class="col-sm-1 pull-left nav btn btn-success">Add a Song</a>
+    <% else %>
+      <a href="/login" class="col-sm-1 pull-left btn nav btn-success">Log In</a>  
+      <a href="/signup" class="col-sm-1 pull-right btn nav btn-success">Sign Up</a>  
+    <% end %>
+  <header>
   <%= yield %>
 </body>
 </html>

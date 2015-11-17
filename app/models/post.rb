@@ -1,7 +1,11 @@
 class Post < ActiveRecord::Base
 
-  validates :title, presence: true
-  validates :author, presence: true
+  belongs_to :user
+
+  has_many :votes
+
+  validates :title, presence: true, length: { maximum: 50 }
+  validates :author, presence: true, length: { maximum: 50 }
   validate :url, :check_url
 
   def check_url
