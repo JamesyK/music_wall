@@ -1,31 +1,32 @@
-<div class="container">
+<div class="row">
   <div class="col-md-4 col-md-offset-4 main-div">
     <h1>Sign Up</h1>
     <hr/>
 
-    <% if @user.errors.any? %>
+    <% if session['signup_errors'] && session['signup_errors'].errors.any? %>
       <div>
         <strong>Some issues with your sign up, please fix them:</strong>
         <ul>
-          <% @user.errors.full_messages.each do |message| %>
+          <% session['signup_errors'].errors.full_messages.each do |message| %>
             <li><%= message %></li>
           <% end %>
         </ul>
       </div>
     <% end %>
+    <% session['signup_errors'] = nil %>
     <div>
       <form method="post" action="/signup">
         <div class="form-group">
           <label>Username:</label>
-          <input type="text" class="form-control" name="username" placeholder="Minimum 4 characters" value="<%= @user.username %>">
+          <input type="text" class="form-control" name="username" autofocus="autofocus" placeholder="Minimum 4 characters" value="<%= session['username_given'] %>" />
         </div>
         <div class="form-group">
           <label>Email:</label>
-          <input type="text" class="form-control" name="email" placeholder="Must be valid" value="<%= @user.email %>">
+          <input type="text" class="form-control" name="email" placeholder="Must be valid" value="<%= session['email_given'] %>" />
         </div>
         <div class="form-group">
           <label>Password:</label>
-          <input type="password" class="form-control" name="password" placeholder="Minimum 6 characters" value="<%= @user.password %>">
+          <input type="password" class="form-control" name="password" placeholder="Minimum 6 characters" />
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
