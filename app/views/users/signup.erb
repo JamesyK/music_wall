@@ -3,17 +3,17 @@
     <h1>Sign Up</h1>
     <hr/>
 
-    <% if session['signup_errors'] && session['signup_errors'].errors.any? %>
+    <% if session['errors'] && session['errors'].errors.any? %>
       <div>
         <strong>Some issues with your sign up, please fix them:</strong>
         <ul>
-          <% session['signup_errors'].errors.full_messages.each do |message| %>
+          <% session['errors'].errors.full_messages.each do |message| %>
             <li><%= message %></li>
           <% end %>
         </ul>
       </div>
     <% end %>
-    <% session['signup_errors'] = nil %>
+    <% session['errors'] = nil %>
     <div>
       <form method="post" action="/signup">
         <div class="form-group">

@@ -4,6 +4,7 @@ class Review < ActiveRecord::Base
   belongs_to :user
 
   validates :comment, presence: true, length: { in: 1..140 }
+  validates :rating, inclusion: { in: 1..5 }
   validate :user_cannot_review_twice
 
   def user_cannot_review_twice

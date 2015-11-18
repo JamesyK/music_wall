@@ -5,6 +5,12 @@ helpers do
     User.find_by(id: session[:user_id]) if session[:user_id]
   end
 
+  def reset_post
+    session['post_title'] = nil
+    session['post_author'] = nil
+    session['post_url'] = nil
+  end
+
 end
 
 before do
@@ -41,7 +47,6 @@ get '/posts' do
 end
 
 get '/posts/new' do
-  @post = Post.new
   erb :'posts/new'
 end
 
@@ -52,36 +57,42 @@ get '/posts/:id' do
 end
 
 post '/posts' do
-  post = current_user.posts.create(
+  session['post_title'] = params[:title]
+  session['post_author'] = params[:author]
+  session['post_url'] = params[:url]
+  post = Post.create(
     title: params[:title],
     author: params[:author],
-    url: params[:url]
+    url: params[:url],
+    user_id: params[:user_id]
   )
   if post.persisted?
     redirect '/posts'
   else
-    erb :'posts/new'
+    session['errors'] = post
+    redirect '/posts/new'
   end
 end
 
 post '/signup' do
   session['username_given'] = params['username']
   session['email_given'] = params['email']
-  user = User.new(
+  user = User.create(
     username: params[:username],
     email: params[:email],
     password: params[:password]
   )
-  if user.save
+  if user.persisted?
     session[:user_id] = user.id
     redirect '/posts'
   else
-    session['signup_errors'] = user
+    session['errors'] = user
     redirect '/signup'
   end
 end
 
 post '/login' do
+  session['login_email'] = params['email']
   user = User.find_by(email: params[:email])
   if user.email && user.password == params[:password]
     session[:user_id] = user.id
@@ -92,7 +103,7 @@ post '/login' do
 end
 
 post '/vote' do
-  @vote = Vote.create(post_id: params[:post_id],
+  vote = Vote.create(post_id: params[:post_id],
     user_id: params[:user_id]
   )
   if vote.persisted?
@@ -105,7 +116,8 @@ end
 post '/review' do
   review = Review.create(post_id: params[:post_id],
     user_id: params[:user_id],
-    comment: params[:comment]
+    comment: params[:comment],
+    rating: params[:rating].to_i
   )
   if review.persisted?
     redirect "/posts/#{params[:post_id]}"
