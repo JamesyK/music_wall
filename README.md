@@ -1,7 +1,8 @@
-Sinatra
+Music Wall
+(In Development)
 =============
 
-Brought to you by Lighthouse Labs
+Ruby app using sinatra framework and soundcloud API.
 
 ## Getting Started
 
