@@ -1,5 +1,4 @@
-Music Wall
-(In Development)
+Music Wall (In Development)
 =============
 
 Ruby app using sinatra framework and soundcloud API.
