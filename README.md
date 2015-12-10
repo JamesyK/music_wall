@@ -1,7 +1,7 @@
 Music Wall (In Development)
 =============
 
-Ruby app using sinatra framework and soundcloud API.
+Ruby app using sinatra framework.
 
 ## Getting Started
 
